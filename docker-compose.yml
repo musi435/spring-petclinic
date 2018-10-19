@@ -1,9 +1,19 @@
-mysql:
-  image: mysql:5.7
-  ports:
-    - "3306:3306"
-  environment:
+version: '3'
+services:
+
+  mysql:
+   image: mysql:5.7
+   ports:
+    - 3306:3306
+   environment:
     - MYSQL_ROOT_PASSWORD=petclinic
     - MYSQL_DATABASE=petclinic
-  volumes:
-    - "./conf.d:/etc/mysql/conf.d:ro"
+
+  web:
+   build: 
+    context: .
+    dockerfile: Dockerfile
+   ports:
+   - 8080:8080
+   restart: on-failure
+   
